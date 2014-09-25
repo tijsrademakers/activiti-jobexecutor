@@ -11,7 +11,7 @@ public class NewJobExecutor extends DefaultJobExecutor {
   protected int myCorePoolSize = 5;
   protected int myMaxPoolSize = 100;
   protected int myMaxJobsPerAcquisition = 50;
-  
+
   @Override
   protected void startExecutingJobs() {
     System.out.println("******************");
