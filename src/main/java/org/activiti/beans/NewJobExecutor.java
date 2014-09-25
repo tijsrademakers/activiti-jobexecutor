@@ -10,7 +10,7 @@ public class NewJobExecutor extends DefaultJobExecutor {
 
   protected int myCorePoolSize = 50;
   protected int myMaxPoolSize = 100;
-  protected int myMaxJobsPerAcquisition = 100;
+//  protected int myMaxJobsPerAcquisition = 100;
   
   @Override
   protected void startExecutingJobs() {
@@ -27,11 +27,11 @@ public class NewJobExecutor extends DefaultJobExecutor {
     startJobAcquisitionThread(); 
   }
   
-  @Override
-  public int getMaxJobsPerAcquisition() {
-    System.out.println("******************");
-    System.out.println("my getMaxJobsPerAcquisition");
-    System.out.println("******************");
-    return myMaxJobsPerAcquisition;
-  }
+//  @Override
+//  public int getMaxJobsPerAcquisition() {
+//    System.out.println("******************");
+//    System.out.println("my getMaxJobsPerAcquisition");
+//    System.out.println("******************");
+//    return myMaxJobsPerAcquisition;
+//  }
 }

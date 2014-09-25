@@ -38,22 +38,36 @@ public class JobTest {
   @Test
   public void test() throws Exception {
     ExecutorService executor = Executors.newFixedThreadPool(5);
-    for (int i = 0; i < 1000; i++) {
+    long nrOfJobs = 500L;
+    for (int i = 0; i < nrOfJobs; i++) {
       Runnable worker = new StartThread();
       executor.execute(worker);
     }
     executor.shutdown();
     System.out.println("Finished all start threads");
+    
     boolean finishedAllInstances = false;
+    long lastPrintTime = 0;
+    long start = System.currentTimeMillis();
     while (finishedAllInstances == false) {
       long finishedCount = processEngine.getHistoryService().createHistoricProcessInstanceQuery().finished().count();
-      if (finishedCount == 1000) {
+      if (finishedCount == nrOfJobs) {
         finishedAllInstances = true;
       } else {
-        logger.error("finished " + finishedCount);
-        Thread.sleep(500);
+      	if (System.currentTimeMillis() - lastPrintTime > 5000L) {
+      		lastPrintTime = System.currentTimeMillis();
+      		logger.error("finished " + finishedCount);
+      	}
+        Thread.sleep(50);
       }
     }
+    long end = System.currentTimeMillis();
+    
+    long time = end - start;
+    System.out.println("Took " + time + " ms");
+    double perSecond = ( (double) nrOfJobs / (double) time) * 1000;
+    System.out.println("Which is " + perSecond + " processes/second");
+    
   }
   
   public class StartThread implements Runnable {
